@@ -9,9 +9,10 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const helmet = require('helmet');
+const compression = require('compression');
 const hpp = require('hpp');
 
-// Start express app
+// Start express application
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +43,8 @@ app.use('/api', limiter);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
+
+app.use(compression());
 
 // Data sanitization against nosql injection
 app.use(mongoSanitize());

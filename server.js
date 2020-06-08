@@ -7,7 +7,7 @@ const app = require('./app');
 const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => {
-    console.log(`Running on port ${port}`);
+    // console.log(`Running on port ${port}`);
 });
 
 process.on('unhandledRejection', (err) => {
@@ -43,5 +43,5 @@ mongoose
         useCreateIndex: true,
     })
     .then((db) => {
-        console.log('successful connection');
+        // console.log('successful connection');
     });

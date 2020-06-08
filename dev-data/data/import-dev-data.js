@@ -29,8 +29,8 @@ mongoose
     .then(() => {
         console.log('Connected database successfully');
     })
-    .catch(() => {
-        console.log('Connection erorr');
+    .catch((err) => {
+        console.log('Database Connection erorr', err);
     });
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
