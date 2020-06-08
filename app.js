@@ -11,6 +11,7 @@ const xss = require('xss-clean');
 const helmet = require('helmet');
 const hpp = require('hpp');
 
+// Start express app
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
