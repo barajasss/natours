@@ -43,5 +43,8 @@ mongoose
         useCreateIndex: true,
     })
     .then((db) => {
-        // console.log('successful connection');
+        console.log('successfull database connection');
+    })
+    .catch((err) => {
+        console.log('Database Connection erorr', err);
     });
