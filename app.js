@@ -26,12 +26,21 @@ app.use(cors());
 // eg, backend: api.natours.com, frontend: natours.com
 // app.use(cors({ origin: 'https://www.natours.com' }))
 
-// for prefligh requests
+// for preflight requests
 // not necessary when using app.use(cors()) as an application level middlewre
 // only when implmeneted in a single route to allow for complex requests - PUT, PATCH, DELETE, etc.
 // app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// requires raw parsing of the body, i.e. body is available as a string and not as a json object which is necessary for stripe
+app.post(
+    '/webhook-checkout',
+    express.raw({
+        type: 'application/json',
+    }),
+    bookingController.webhookCheckout
+);
 
 //routers
 
@@ -40,6 +49,7 @@ const userRouter = require(`./routes/userRoutes`);
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 
 // Middlewares
 
