@@ -33,15 +33,6 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// requires raw parsing of the body, i.e. body is available as a string and not as a json object which is necessary for stripe
-app.post(
-    '/webhook-checkout',
-    express.raw({
-        type: 'application/json',
-    }),
-    bookingController.webhookCheckout
-);
-
 //routers
 
 const tourRouter = require(`./routes/tourRoutes`);
@@ -51,6 +42,14 @@ const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const bookingController = require('./controllers/bookingController');
 
+// requires raw parsing of the body, i.e. body is available as a string and not as a json object which is necessary for stripe
+app.post(
+    '/webhook-checkout',
+    express.raw({
+        type: 'application/json',
+    }),
+    bookingController.webhookCheckout
+);
 // Middlewares
 
 app.use(helmet());
