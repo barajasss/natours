@@ -11,6 +11,7 @@ const xss = require('xss-clean');
 const helmet = require('helmet');
 const compression = require('compression');
 const hpp = require('hpp');
+const cors = require('cors');
 
 // Start express application
 const app = express();
@@ -18,6 +19,17 @@ const app = express();
 app.enable('trust proxy');
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+// implement CORS
+app.use(cors());
+// Access-Control-Allow-Origin, *
+// eg, backend: api.natours.com, frontend: natours.com
+// app.use(cors({ origin: 'https://www.natours.com' }))
+
+// for prefligh requests
+// not necessary when using app.use(cors()) as an application level middlewre
+// only when implmeneted in a single route to allow for complex requests - PUT, PATCH, DELETE, etc.
+// app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
